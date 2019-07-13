@@ -1,4 +1,6 @@
-require "nstore/version"
+# frozen_string_literal: true
+
+require 'nstore/version'
 
 module Nstore
   class Error < StandardError; end
