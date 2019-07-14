@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nstore'
 
 class DumpWithPrefix
@@ -7,11 +9,11 @@ class DumpWithPrefix
 
   nstore :meta,
          accessors: {
-             raw: {
-                 board:  [:id, :name],
-                 column: [:id, :name, user: [:id, :name]]
-             },
-             trello: [:id, :name]
+           raw: {
+             board: %i[id name],
+             column: [:id, :name, user: %i[id name]]
+           },
+           trello: %i[id name]
          },
          prefix: true
 

@@ -10,7 +10,6 @@ module NStore
   end
 
   module ClassMethods
-
     def nstore(attribute, options)
       prefix    = options.fetch(:prefix, false)
       accessors = options[:accessors]
@@ -68,7 +67,7 @@ module NStore
   # @param [Array] keys
   # @param [Object] value
   def write_nstore_attribute(attribute, keys, value)
-    position = self.send(attribute)
+    position = send(attribute)
     keys.map(&:to_s)[0..-2].each do |key|
       position[key] = {} unless position[key].is_a?(Hash)
       position      = position[key]
@@ -77,6 +76,6 @@ module NStore
   end
 
   def read_nstore_attribute(attribute, keys)
-    self.send(attribute).send(:dig, *keys.map{ |s| s.to_s })
+    send(attribute).send(:dig, *keys.map(&:to_s))
   end
 end

@@ -14,10 +14,11 @@ RSpec.describe NStore do
 
     it 'creates setters and getters' do
       %i[
-      raw_board_id raw_board_name
-      raw_column_id raw_column_name
-      raw_column_user_id raw_column_user_name
-      trello_id trello_name].each do |m|
+        raw_board_id raw_board_name
+        raw_column_id raw_column_name
+        raw_column_user_id raw_column_user_name
+        trello_id trello_name
+      ].each do |m|
         value = "VALUE: #{m}"
         subject.send("#{m}=".to_sym, value)
         expect(subject.send(m)).to eq value
@@ -30,10 +31,11 @@ RSpec.describe NStore do
 
     it 'creates setters and getters' do
       %i[
-      meta_raw_board_id meta_raw_board_name
-      meta_raw_column_id meta_raw_column_name
-      meta_raw_column_user_id meta_raw_column_user_name
-      meta_trello_id meta_trello_name].each do |m|
+        meta_raw_board_id meta_raw_board_name
+        meta_raw_column_id meta_raw_column_name
+        meta_raw_column_user_id meta_raw_column_user_name
+        meta_trello_id meta_trello_name
+      ].each do |m|
         value = "VALUE: #{m}"
         subject.send("#{m}=".to_sym, value)
         expect(subject.send(m)).to eq value
