@@ -6,7 +6,7 @@ require 'nstore/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'nstore'
-  spec.version       = Nstore::VERSION
+  spec.version       = NStore::VERSION
   spec.authors       = ['Renat "MpaK" Ibragimov']
   spec.email         = ['mrak69@gmail.com']
 

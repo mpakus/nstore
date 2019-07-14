@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-module Nstore
+module NStore
   VERSION = '0.1.0'
 end
