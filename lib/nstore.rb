@@ -12,16 +12,19 @@ module NStore
   module ClassMethods
     def nstore(attribute, options)
       prefix    = options.fetch(:prefix, false)
+      stringify = options.fetch(:stringify, false)
       accessors = options[:accessors]
       _accessors = []
       deep_flatten(accessors, [], _accessors)
 
       _accessors.each do |keys|
         define_method("#{prefix ? "#{attribute}_" : ''}#{keys.join('_')}=".to_sym) do |value|
+          keys.map!(&:to_s) if stringify
           write_nstore_attribute(attribute, keys, value)
         end
 
         define_method("#{prefix ? "#{attribute}_" : ''}#{keys.join('_')}".to_sym) do
+          keys.map!(&:to_s) if stringify
           read_nstore_attribute(attribute, keys)
         end
       end
@@ -68,14 +71,14 @@ module NStore
   # @param [Object] value
   def write_nstore_attribute(attribute, keys, value)
     position = send(attribute)
-    keys.map(&:to_s)[0..-2].each do |key|
+    keys[0..-2].each do |key|
       position[key] = {} unless position[key].is_a?(Hash)
       position      = position[key]
     end
-    position[keys[-1].to_s] = value
+    position[keys[-1]] = value
   end
 
   def read_nstore_attribute(attribute, keys)
-    send(attribute).send(:dig, *keys.map(&:to_s))
+    send(attribute).send(:dig, *keys)
   end
 end
