@@ -13,7 +13,8 @@ class DumpNoPrefix
            },
            trello: %i[id name]
          },
-         prefix: false
+         prefix: false,
+         stringify: false
 
   def initialize(meta = {})
     @meta = meta

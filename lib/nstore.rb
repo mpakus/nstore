@@ -2,6 +2,23 @@
 
 require 'nstore/version'
 
+# Mixin module to include into your class
+# @example
+#   class YourClass
+#     include NStore
+#
+#     attr_accessor :meta
+#
+#     nstore :meta,
+#            accessors: {
+#                jira: {
+#                    board: [:id, :name, user: %i[id name]]
+#                },
+#                trello: %i[id name]
+#            },
+#            prefix: false,
+#            stringify: false
+#     ...
 module NStore
   class Error < StandardError; end
 
@@ -9,15 +26,20 @@ module NStore
     klass.extend(ClassMethods)
   end
 
+  # List of Class methods going to be included above
   module ClassMethods
     def nstore(attribute, options)
       prefix    = options.fetch(:prefix, false)
       stringify = options.fetch(:stringify, false)
       accessors = options[:accessors]
-      _accessors = []
-      deep_flatten(accessors, [], _accessors)
 
-      _accessors.each do |keys|
+      flat_accessors = []
+      deep_flatten(accessors, [], flat_accessors)
+      _nstore_generate_accessors(attribute, flat_accessors, prefix, stringify)
+    end
+
+    def _nstore_generate_accessors(attribute, flat_accessors, prefix, stringify)
+      flat_accessors.each do |keys|
         define_method("#{prefix ? "#{attribute}_" : ''}#{keys.join('_')}=".to_sym) do |value|
           keys.map!(&:to_s) if stringify
           write_nstore_attribute(attribute, keys, value)
@@ -27,14 +49,6 @@ module NStore
           keys.map!(&:to_s) if stringify
           read_nstore_attribute(attribute, keys)
         end
-      end
-    end
-
-    def _store_accessors_module # :nodoc: ActiveRecord::Store
-      @_store_accessors_module ||= begin
-        mod = Module.new
-        include mod
-        mod
       end
     end
 
