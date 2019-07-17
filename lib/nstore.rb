@@ -79,10 +79,8 @@ module NStore
     end
   end
 
-  private
-
-  # @param [Symbol] attribute
-  # @param [Array] keys
+  # @param [Symbol,String] attribute
+  # @param [Array<String,Symbol>] keys
   # @param [Object] value
   def write_nstore_attribute(attribute, keys, value)
     send("#{attribute}=", {}) if send(attribute).nil?
@@ -95,11 +93,10 @@ module NStore
     position[keys[-1]] = value
   end
 
+  # @param [Symbol,String] attribute
+  # @param [Array<String,Symbol>] keys
+  # @return [Object]
   def read_nstore_attribute(attribute, keys)
     send(attribute).send(:dig, *keys)
-  end
-
-  def nstore_key_brakets(attribute, keys)
-    ([attribute] + keys).map { |k| "['#{k}']" }.join
   end
 end
