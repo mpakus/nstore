@@ -70,6 +70,46 @@ List of options:
   
 - `stringify` - (true by default) this option is useful for serialization of a hash-map attribute into JSON/YAML format or for saving it in 
   a Database HSTORE/JSON/JSONB if you use symbol keys as accessors
+  
+Possible to use with ActiveRecord model.
+
+```
+class Dump < ActiveRecord::Base
+  include NStore
+
+  store :meta, serialize: JSON # use store_accessor with PostgreSQL and HSTORE/JSON/JSONB type
+  store :storage, serialize: JSON
+
+  nstore :meta,
+         accessors: { board: %i[id name] },
+         prefix: false
+  nstore :storage,
+         accessors: { board: %i[id name] },
+         prefix: true
+  ...
+```
+
+creates list of methods to get and set nested values:
+```
+
+dump = Dump.new
+dump.board_id = 100
+dump.board_name = 'Meta'
+dump.storage_board_id = 300
+dump.storage_board_name = 'Storage Board'
+dump.save!
+
+puts dump.board_id
+=> 100
+puts dump.board_name
+=> "Mega"
+puts dump.storage_board_id
+=> 300
+puts dump.storage_board_name
+=> "Storage Board"
+```
+
+When using couple of `nstore` declarations in the same Class, please, use `prefix: true` to avoid conflicts.
 
 ## Development
 

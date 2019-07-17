@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative './fixtures/dump_double'
 require_relative './fixtures/dump_no_prefix'
 require_relative './fixtures/dump_with_prefix'
 require_relative './fixtures/dump_stringify'
@@ -81,5 +82,22 @@ RSpec.describe NStore do
         end
       end
     end
+  end
+
+  context 'with double declaration' do
+    subject { DumpDouble.new }
+
+    before do
+      subject.board_id = 100
+      subject.board_name = 'Board1'
+      subject.storage_board_id = 200
+      subject.storage_board_name = 'Storage Board1'
+    end
+
+    it { expect(subject.board_id).to eq 100 }
+    it { expect(subject.board_name).to eq 'Board1' }
+
+    it { expect(subject.storage_board_id).to eq 200 }
+    it { expect(subject.storage_board_name).to eq 'Storage Board1' }
   end
 end

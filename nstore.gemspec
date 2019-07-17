@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.3.1'
 
   spec.metadata = {
-    'changelog_uri' => 'https://github.com/mpakus/nstore/README.md',
+    'changelog_uri' => 'https://github.com/mpakus/nstore/CHANGELOG.md',
     'documentation_uri' => 'https://github.com/mpakus/nstore',
     'homepage_uri' => 'https://github.com/mpakus/nstore',
     'source_code_uri' => 'https://github.com/mpakus/nstore'
@@ -44,9 +44,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_development_dependency 'activerecord', '~> 4.1.14.1'
   spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'bundler', '~> 1.17'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.49'
+  spec.add_development_dependency 'sqlite3', '~> 1.3.6'
 end

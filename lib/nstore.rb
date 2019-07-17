@@ -16,8 +16,8 @@ require 'nstore/version'
 #                },
 #                trello: %i[id name]
 #            },
-#            prefix: false,
-#            stringify: false
+#            prefix:       false,
+#            stringify:    true
 #     ...
 module NStore
   class Error < StandardError; end
@@ -29,24 +29,25 @@ module NStore
   # List of Class methods going to be included above
   module ClassMethods
     def nstore(attribute, options)
-      prefix       = options.fetch(:prefix, false)
-      stringify    = options.fetch(:stringify, false)
       accessors    = options[:accessors]
+      prefix       = options.fetch(:prefix, false)
+      stringify    = options.fetch(:stringify, true)
 
       flat_accessors = []
       deep_flatten(accessors, [], flat_accessors)
+      attribute = attribute.to_s if stringify
       _nstore_generate_accessors(attribute, flat_accessors, prefix, stringify)
     end
 
     def _nstore_generate_accessors(attribute, flat_accessors, prefix, stringify)
       flat_accessors.each do |keys|
+        keys.map!(&:to_s) if stringify
+
         define_method("#{prefix ? "#{attribute}_" : ''}#{keys.join('_')}=".to_sym) do |value|
-          keys.map!(&:to_s) if stringify
           write_nstore_attribute(attribute, keys, value)
         end
 
         define_method("#{prefix ? "#{attribute}_" : ''}#{keys.join('_')}".to_sym) do
-          keys.map!(&:to_s) if stringify
           read_nstore_attribute(attribute, keys)
         end
       end
@@ -96,5 +97,9 @@ module NStore
 
   def read_nstore_attribute(attribute, keys)
     send(attribute).send(:dig, *keys)
+  end
+
+  def nstore_key_brakets(attribute, keys)
+    ([attribute] + keys).map { |k| "['#{k}']" }.join
   end
 end
