@@ -29,9 +29,9 @@ module NStore
   # List of Class methods going to be included above
   module ClassMethods
     def nstore(attribute, options)
-      prefix    = options.fetch(:prefix, false)
-      stringify = options.fetch(:stringify, false)
-      accessors = options[:accessors]
+      prefix       = options.fetch(:prefix, false)
+      stringify    = options.fetch(:stringify, false)
+      accessors    = options[:accessors]
 
       flat_accessors = []
       deep_flatten(accessors, [], flat_accessors)
@@ -84,7 +84,9 @@ module NStore
   # @param [Array] keys
   # @param [Object] value
   def write_nstore_attribute(attribute, keys, value)
+    send("#{attribute}=", {}) if send(attribute).nil?
     position = send(attribute)
+
     keys[0..-2].each do |key|
       position[key] = {} unless position[key].is_a?(Hash)
       position      = position[key]

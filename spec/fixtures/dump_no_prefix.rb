@@ -15,8 +15,4 @@ class DumpNoPrefix
          },
          prefix: false,
          stringify: false
-
-  def initialize(meta = {})
-    @meta = meta
-  end
 end
