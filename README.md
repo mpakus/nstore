@@ -24,7 +24,7 @@ Or install it yourself as:
 
 First include NStore module to your class/model and then describe hash-map attribute, list of accessors and couple of options.
 
-```
+```ruby
   class User
     include NStore
     
@@ -46,7 +46,7 @@ First include NStore module to your class/model and then describe hash-map attri
 
 This will generate several setter and getter methods:
 
-```
+```ruby
 user = User.new
 user.profile_uid = 100
 user.profile_url
@@ -73,7 +73,7 @@ List of options:
   
 Possible to use with ActiveRecord model.
 
-```
+```ruby
 class Dump < ActiveRecord::Base
   include NStore
 
@@ -90,8 +90,7 @@ class Dump < ActiveRecord::Base
 ```
 
 creates list of methods to get and set nested values:
-```
-
+```ruby
 dump = Dump.new
 dump.board_id = 100
 dump.board_name = 'Meta'
