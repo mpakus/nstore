@@ -1,5 +1,7 @@
 # NStore
 
+[![CircleCI](https://circleci.com/gh/mpakus/nstore.svg?style=svg)](https://circleci.com/gh/mpakus/nstore)
+
 Store gives you a thin wrapper around serialize for the purpose of storing hashes in a single column. It's like a simple key/value store baked into your record when you don't care about being able to query that store outside the context of a single record.
 
 You can then declare accessors to this store that are then accessible just like any other attribute of the model. This is very helpful for easily exposing store keys to a form or elsewhere that's already built around just accessing attributes on the model.
