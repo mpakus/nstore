@@ -5,14 +5,22 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'nstore/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'nstore'
-  spec.version       = NStore::VERSION
-  spec.authors       = ['Renat "MpaK" Ibragimov']
-  spec.email         = ['mrak69@gmail.com']
+  spec.name                  = 'nstore'
+  spec.version               = NStore::VERSION
+  spec.authors               = ['Renat "MpaK" Ibragimov']
+  spec.email                 = ['mrak69@gmail.com']
+  spec.license               = 'GPL-3'
+  spec.summary               = 'NStore - nested attributes accessors.'
+  spec.description           = 'Generates nested attributes accessors.'
+  spec.homepage              = 'https://github.com/mpakus/nstore'
+  spec.required_ruby_version = '>= 2.3.1'
 
-  spec.summary       = 'NStore - nested attributes accessors.'
-  spec.description   = 'Generates nested attributes accessors.'
-  spec.homepage      = 'https://github.com/mpakus/nstore'
+  spec.metadata = {
+    'changelog_uri' => 'https://github.com/mpakus/nstore/README.md',
+    'documentation_uri' => 'https://github.com/mpakus/nstore',
+    'homepage_uri' => 'https://github.com/mpakus/nstore',
+    'source_code_uri' => 'https://github.com/mpakus/nstore'
+  }
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

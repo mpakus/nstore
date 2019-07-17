@@ -88,7 +88,7 @@ module NStore
     position = send(attribute)
 
     keys[0..-2].each do |key|
-      position[key] = {} unless position[key].is_a?(Hash)
+      position[key] = {} unless position[key].is_a? Hash
       position      = position[key]
     end
     position[keys[-1]] = value
