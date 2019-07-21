@@ -33,6 +33,7 @@ module NStore
       prefix       = options.fetch(:prefix, false)
       stringify    = options.fetch(:stringify, true)
 
+      accessors = { nil => accessors } if accessors.is_a? Array
       flat_accessors = []
       deep_flatten(accessors, [], flat_accessors)
       attribute = attribute.to_s if stringify
@@ -41,6 +42,7 @@ module NStore
 
     def _nstore_generate_accessors(attribute, flat_accessors, prefix, stringify)
       flat_accessors.each do |keys|
+        keys.reject!(&:nil?)
         keys.map!(&:to_s) if stringify
 
         define_method("#{prefix ? "#{attribute}_" : ''}#{keys.join('_')}=".to_sym) do |value|

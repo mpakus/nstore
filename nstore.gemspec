@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.3.1'
 
   spec.metadata = {
-    'changelog_uri' => 'https://github.com/mpakus/nstore/CHANGELOG.md',
+    'changelog_uri' => 'https://github.com/mpakus/nstore/blob/master/CHANGELOG.md',
     'documentation_uri' => 'https://github.com/mpakus/nstore',
     'homepage_uri' => 'https://github.com/mpakus/nstore',
     'source_code_uri' => 'https://github.com/mpakus/nstore'

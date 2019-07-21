@@ -110,6 +110,39 @@ puts dump.storage_board_name
 => "Storage Board"
 ```
 
+or just a flat array when need one level of methods, with or without prefix (be careful with attributes conflicts)
+
+```ruby
+class Dump < ActiveRecord::Base
+  include NStore
+
+  attr_accessor :member
+  attr_accessor :card
+  nstore :member,
+         accessors: [:id, :avatar],
+         prefix: true
+  nstore :card,
+         accessors: [:number, :date],
+         prefix: false         
+  ...
+```
+
+```ruby
+dump = Dump.new
+dump.member_id = 100
+dump.member_avatar = 'Avatar URL'
+dump.number = 'Card Number'
+dump.date = 'Card Date'
+puts dump.member_id
+=> 100
+puts dump.member_avatar
+=> "Avatar URL"
+puts dump.number
+=> "Card Number"
+puts dump.date
+=> "Card Date"    
+```
+
 When using couple of `nstore` declarations in the same Class, please, use `prefix: true` to avoid conflicts.
 
 ## Development

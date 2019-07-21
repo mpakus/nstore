@@ -4,6 +4,7 @@ require_relative './fixtures/dump_double'
 require_relative './fixtures/dump_no_prefix'
 require_relative './fixtures/dump_with_prefix'
 require_relative './fixtures/dump_stringify'
+require_relative './fixtures/dump_array'
 
 RSpec.describe NStore do
   it 'has a version number' do
@@ -99,5 +100,22 @@ RSpec.describe NStore do
 
     it { expect(subject.storage_board_id).to eq 200 }
     it { expect(subject.storage_board_name).to eq 'Storage Board1' }
+  end
+
+  context 'with accessors array' do
+    subject { DumpArray.new }
+
+    before do
+      subject.id = 'Storage ID'
+      subject.name = 'Storage Name'
+      subject.meta_id = 'Meta ID'
+      subject.meta_name = 'Meta Name'
+    end
+
+    it { expect(subject.id).to eq 'Storage ID' }
+    it { expect(subject.name).to eq 'Storage Name' }
+
+    it { expect(subject.meta_id).to eq 'Meta ID' }
+    it { expect(subject.meta_name).to eq 'Meta Name' }
   end
 end
